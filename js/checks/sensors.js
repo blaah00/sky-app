@@ -49,7 +49,11 @@ export async function run(ctx, progress, update) {
   const video = panel.querySelector('video');
   const live = panel.querySelector('.live');
   const results = { camera: 'not started', orientation: 'not started' };
-  let stream = null, lastEvent = null, eventCount = 0, eventKind = null, timer = null;
+  let stream = null, lastEvent = null, eventKind = null, timer = null;
+
+  // Diagnostics: count every kind of reading separately, so a failure says *which* sensor is missing.
+  const counts = { absolute: 0, absoluteEmpty: 0, relative: 0, relativeEmpty: 0, motion: 0 };
+  const diag = [];   // extra rows: what Chrome says about each sensor
 
   const pushUpdate = () => {
     const camOk = results.camera.startsWith('OK'), oriOk = results.orientation.startsWith('OK');
@@ -57,15 +61,50 @@ export async function run(ctx, progress, update) {
       status: camOk && oriOk ? 'green' : (results.camera === 'not started' ? 'waiting' : (camOk || oriOk ? 'amber' : 'red')),
       summary: `Camera: ${results.camera}. Compass/tilt: ${results.orientation}.`,
       rows: [['Camera', results.camera], ['Compass + tilt', results.orientation],
+        ['Readings in 3 s', `compass-referenced ${counts.absolute} (empty ${counts.absoluteEmpty}), ` +
+          `tilt-only ${counts.relative} (empty ${counts.relativeEmpty}), motion ${counts.motion}`],
+        ...diag,
         ...(lastEvent ? [['Last reading', `alpha ${lastEvent.alpha?.toFixed(1)}°, beta ${lastEvent.beta?.toFixed(1)}°, ` +
           `gamma ${lastEvent.gamma?.toFixed(1)}° (${eventKind})`]] : [])],
     });
   };
 
-  function onOrientation(e) {
-    if (e.alpha === null) return;
-    if (e.type === 'deviceorientation' && !e.absolute) return;   // relative-only readings don't know where north is
-    lastEvent = e; eventCount++; eventKind = e.type === 'deviceorientationabsolute' ? 'absolute, from compass' : 'absolute';
+  function onAbsolute(e) {
+    if (e.alpha === null) { counts.absoluteEmpty++; return; }
+    counts.absolute++; lastEvent = e; eventKind = 'absolute, from compass';
+  }
+  function onRelative(e) {
+    if (e.alpha === null && e.beta === null) { counts.relativeEmpty++; return; }
+    if (e.absolute) { counts.absolute++; lastEvent = e; eventKind = 'absolute'; return; }
+    counts.relative++;
+  }
+  const onMotion = () => { counts.motion++; };
+
+  // Ask Chrome directly whether each sensor is allowed, and whether a compass-based orientation sensor exists.
+  async function probeSensors() {
+    for (const name of ['accelerometer', 'gyroscope', 'magnetometer']) {
+      try {
+        const st = await navigator.permissions.query({ name });
+        diag.push([`Chrome permission: ${name}`, st.state]);
+      } catch { diag.push([`Chrome permission: ${name}`, 'cannot be checked on this browser']); }
+    }
+    if (!('AbsoluteOrientationSensor' in window)) {
+      diag.push(['Compass sensor (direct test)', 'not available in this browser']);
+      return;
+    }
+    await new Promise(resolve => {
+      let s;
+      const done = msg => { diag.push(['Compass sensor (direct test)', msg]); try { s.stop(); } catch { /* ignore */ } resolve(); };
+      try {
+        s = new AbsoluteOrientationSensor({ frequency: 10 });
+        s.onreading = () => done('OK — the phone has a working compass');
+        s.onerror = e => done(e.error?.name === 'NotReadableError' ? 'MISSING — this phone reports no compass (magnetometer)'
+          : e.error?.name === 'NotAllowedError' ? 'BLOCKED — motion sensors are not allowed for this site'
+          : `error: ${e.error?.name} ${e.error?.message || ''}`);
+        s.start();
+        setTimeout(() => done('no answer within 3 seconds'), 3000);
+      } catch (e) { done(`could not start: ${e.name} ${e.message}`); }
+    });
   }
 
   function render() {
@@ -80,33 +119,40 @@ export async function run(ctx, progress, update) {
       <p class="bigline">Camera points: <b>${escapeHtml(fmt(cam))}</b></p>
       <p>Moon is at: ${escapeHtml(fmt(moon))} — camera is <b>${separation(cam, moon).toFixed(0)}°</b> away from it</p>
       <p>Sun is at: ${escapeHtml(fmt(sun))} — camera is ${separation(cam, sun).toFixed(0)}° away (don't point at the Sun)</p>
-      <p class="small">Raw: alpha ${lastEvent.alpha.toFixed(1)}, beta ${lastEvent.beta.toFixed(1)}, gamma ${lastEvent.gamma.toFixed(1)}. Readings so far: ${eventCount}.</p>`;
+      <p class="small">Raw: alpha ${lastEvent.alpha.toFixed(1)}, beta ${lastEvent.beta.toFixed(1)}, gamma ${lastEvent.gamma.toFixed(1)}. Readings so far: ${counts.absolute}.</p>`;
   }
 
   panel.querySelector('[data-start]').onclick = async (ev) => {
     ev.target.hidden = true;
-    // Camera
+    // Camera: ask for up to Full HD, to learn the best the back camera offers in a browser.
     try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } }, audio: false });
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false });
       video.srcObject = stream; video.hidden = false; await video.play();
       const s = stream.getVideoTracks()[0].getSettings();
       results.camera = `OK — back camera ${s.width}×${s.height}` + (s.facingMode ? ` (${s.facingMode})` : '');
     } catch (e) {
       results.camera = `FAILED — ${e.name === 'NotAllowedError' ? 'permission was refused' : e.message}`;
     }
-    // Orientation: Chrome on Android gives compass-referenced readings through "deviceorientationabsolute".
-    if ('ondeviceorientationabsolute' in window) window.addEventListener('deviceorientationabsolute', onOrientation);
-    else window.addEventListener('deviceorientation', onOrientation);
+    // Orientation: listen to every kind, so we can tell "no compass" from "no sensors at all".
+    window.addEventListener('deviceorientationabsolute', onAbsolute);
+    window.addEventListener('deviceorientation', onRelative);
+    window.addEventListener('devicemotion', onMotion);
     live.hidden = false;
     panel.querySelector('[data-stop]').hidden = false;
     pushUpdate();
     let checks = 0;
-    timer = setInterval(() => {
+    timer = setInterval(async () => {
       render();
-      if (++checks === 6) {   // after 3 seconds, judge whether readings are arriving
-        results.orientation = eventCount > 0
-          ? `OK — ${eventKind}, about ${Math.round(eventCount / 3)} readings per second`
-          : 'FAILED — no compass-referenced readings arrived (sensor blocked or not supported)';
+      if (++checks === 6) {   // after 3 seconds, judge what arrived
+        await probeSensors();
+        results.orientation = counts.absolute > 0
+          ? `OK — ${eventKind}, about ${Math.round(counts.absolute / 3)} readings per second`
+          : counts.relative > 0
+            ? 'COMPASS MISSING — tilt works, but no readings that know where north is'
+            : counts.motion > 0
+              ? 'FAILED — only raw motion arrives; no orientation (tilt or compass) readings'
+              : 'FAILED — no motion sensor readings at all (blocked in Chrome settings, or no sensors)';
         pushUpdate();
       }
     }, 500);
@@ -116,8 +162,9 @@ export async function run(ctx, progress, update) {
     stream?.getTracks().forEach(t => t.stop());
     video.hidden = true;
     clearInterval(timer);
-    window.removeEventListener('deviceorientationabsolute', onOrientation);
-    window.removeEventListener('deviceorientation', onOrientation);
+    window.removeEventListener('deviceorientationabsolute', onAbsolute);
+    window.removeEventListener('deviceorientation', onRelative);
+    window.removeEventListener('devicemotion', onMotion);
     panel.querySelector('[data-stop]').hidden = true;
   };
 

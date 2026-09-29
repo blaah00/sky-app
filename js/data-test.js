@@ -13,7 +13,7 @@ import * as clouds from './checks/clouds.js';
 import * as stars from './checks/stars.js';
 import * as sensors from './checks/sensors.js';
 
-const VERSION = 'Step 1 data test, v1 (29 Sep 2026)';
+const VERSION = 'Step 1 data test, v2 (29 Sep 2026)';
 
 // Order on screen. Quick internet checks start together; heavy calculations run after, one at a time.
 const NETWORK = [clouds, crew, launches, flights, sunImage];
