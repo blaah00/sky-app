@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Only load things from this site itself. Outside services are allowed for data and images only. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';
+    img-src 'self' https://sdo.gsfc.nasa.gov https://api.helioviewer.org data: blob:; media-src 'self' blob:;
+    connect-src 'self' https://celestrak.org https://api.open-meteo.com https://api.adsb.lol https://opendata.adsb.fi
+    https://api.adsbdb.com https://ll.thespacedevs.com https://corquaid.github.io">
+  <title>Sky app — data test</title>
+  <link rel="stylesheet" href="css/data-test.css">
+  <script type="module" src="js/data-test.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Sky app — data test</h1>
+    <p class="small" id="version"></p>
+    <p>Phone time zone: <b id="tz"></b></p>
+    <p id="loc">This page checks every data source the app will use, from this phone, at this place.</p>
+    <button class="big" id="start">Start: use my location</button>
+  </header>
+
+  <main id="checks"></main>
+
+  <footer>
+    <button class="big" id="copy" hidden>Copy report</button>
+    <textarea id="report" hidden readonly></textarea>
+    <p class="small">Green = works. Amber = works, with a caveat to read. Red = does not work on this phone.
+      Tap "Details" on any row for the actual values.</p>
+    <p class="small">Credits: HYG star database and Stellarium sky cultures (CC BY-SA 4.0); astronomy-engine and
+      satellite.js (MIT); orbit data CelesTrak; weather Open-Meteo; launches and crew The Space Devs and corquaid;
+      Sun images NASA SDO / Helioviewer; flights adsb.lol, adsb.fi, adsbdb.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,74 @@
+/* Step 1 data test page. Dark background, big text: it may be tested outside at night. */
+
+:root {
+  --bg: #0b0d12;
+  --panel: #151922;
+  --text: #e8eaf0;
+  --muted: #9aa3b5;
+  --green: #3ecf6e;
+  --amber: #f0b429;
+  --red: #ff5a5a;
+  --grey: #6b7385;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 16px 16px 48px;
+  background: var(--bg);
+  color: var(--text);
+  font: 18px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1 { font-size: 1.6rem; margin: 0 0 4px; }
+h2 { font-size: 1.25rem; margin: 0; display: flex; align-items: center; gap: 10px; }
+
+.small { font-size: 0.85rem; color: var(--muted); }
+.bad { color: var(--red); }
+
+button {
+  font: inherit;
+  color: var(--text);
+  background: #26304a;
+  border: 1px solid #3a4666;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 8px 0;
+}
+button.big { width: 100%; padding: 16px; font-size: 1.2rem; background: #2f5bd3; border-color: #2f5bd3; }
+button:disabled { opacity: 0.6; }
+
+.check {
+  background: var(--panel);
+  border-left: 8px solid var(--grey);
+  border-radius: 10px;
+  padding: 14px;
+  margin: 14px 0;
+}
+.check .dot { width: 18px; height: 18px; border-radius: 50%; background: var(--grey); flex: none; }
+.check.green { border-left-color: var(--green); }
+.check.green .dot { background: var(--green); }
+.check.amber { border-left-color: var(--amber); }
+.check.amber .dot { background: var(--amber); }
+.check.red { border-left-color: var(--red); }
+.check.red .dot { background: var(--red); }
+.check.running .dot { animation: pulse 1s infinite alternate; }
+@keyframes pulse { to { opacity: 0.3; } }
+
+.summary { margin: 8px 0; }
+
+details summary { cursor: pointer; color: var(--muted); padding: 6px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { text-align: left; vertical-align: top; padding: 6px 4px; border-top: 1px solid #252b38; }
+th { color: var(--muted); font-weight: 600; width: 38%; }
+
+figure { margin: 10px 0; }
+figure img { width: 100%; max-width: 480px; border-radius: 8px; display: block; }
+figcaption { font-size: 0.85rem; color: var(--muted); }
+
+.sensor-panel video { width: 100%; border-radius: 8px; margin: 8px 0; background: #000; }
+.sensor-panel .bigline { font-size: 1.3rem; }
+
+textarea { width: 100%; height: 300px; background: #000; color: var(--text); font-size: 0.8rem; }
