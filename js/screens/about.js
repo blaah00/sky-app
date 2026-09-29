@@ -17,6 +17,11 @@ export function render() {
           Vishvas Vasuki and the sanskrit-coders community, re-worked by Susanne M Hoffmann — CC BY-SA</li>
       </ul>
 
+      <h3>Moon picture</h3>
+      <ul>
+        <li>NASA's Scientific Visualization Studio (Ernie Wright, USRA), from Lunar Reconnaissance Orbiter data</li>
+      </ul>
+
       <h3>Calculations</h3>
       <ul>
         <li>Sun, Moon and planets: astronomy-engine by Don Cross — MIT licence</li>

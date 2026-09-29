@@ -22,3 +22,16 @@ SHA-256 of the built files (29 Sep 2026):
 Notes:
 - The Indian set has 28 nakshatra figures (it includes Abhijit). The panchang uses 27.
 - Stellarium has no separate figures for the 12 rashis. Rashis are equal 30° slices of the sky, not star patterns.
+
+## Moon facts
+
+`moon-facts.json` was written for this app (29 Sep 2026). Each fact names the source it was checked against.
+
+## Images
+
+| File | Source | Licence |
+|---|---|---|
+| `img/moon-full.jpg` | NASA's Scientific Visualization Studio, "Moon Phase and Libration, 2026" (https://svs.gsfc.nasa.gov/5587), visualizer Ernie Wright (USRA), made from Lunar Reconnaissance Orbiter data. Frame 8571 of the 730×730 set = 24 Dec 2026 02:00 UT: a full moon (99.89% lit), chosen because the Moon's axis is upright (position angle 0.02°) and it faces us almost square-on. Unchanged. | NASA material, not copyrighted (NASA media usage guidelines); credit NASA SVS |
+
+SHA-256 of `img/moon-full.jpg`: `807ca978f9f62d8f2285b590817d860ae2fde762b2acab3a5e6e9ac6cd99ed1c`.
+The Moon's disc is 701 px wide in the 730 px frame, which already matches the app's circle (no zoom needed).

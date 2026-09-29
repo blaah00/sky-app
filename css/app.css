@@ -203,3 +203,40 @@ main { padding: 0.9rem 1rem 1.5rem; outline: none; }
 .credits h3 { font-size: 1rem; margin-top: 0.6rem; }
 .credits ul { margin: 0.3rem 0 0.6rem; padding-left: 1.1rem; }
 .credits li { margin: 0.3rem 0; font-size: 0.9rem; }
+
+/* ---------- Moon (Step 3) ---------- */
+
+a.card { display: block; color: var(--text); text-decoration: none; }
+
+.moon-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.4rem; }
+.moon-pic { flex: none; }
+.moon-phase { margin: 0.2rem 0 0; font-size: 1.3rem; font-weight: 700; }
+.moon-lit { margin: 0; font-size: 1.1rem; color: var(--muted); }
+.tap-hint { margin: 0.6rem 0 0; font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.facts-button { margin: 0 0 0.9rem; min-height: 4.5rem; }
+
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.2rem; margin-top: 0.5rem; text-align: center; }
+.week-day { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; font-size: 0.75rem; padding: 0.3rem 0; border-radius: 0.6rem; }
+.week-day.today, .cal-day.today { background: var(--surface-2); outline: 2px solid var(--accent); }
+
+.phase-list { list-style: none; margin: 0.4rem 0 0; padding: 0; }
+.phase-list li { padding: 0.5rem 0; border-top: 1px solid var(--line); }
+.phase-list li:first-child { border-top: none; }
+
+.calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.15rem; margin-top: 0.5rem; text-align: center; }
+.cal-head { font-size: 0.7rem; font-weight: 700; color: var(--muted); }
+.cal-day { display: flex; flex-direction: column; align-items: center; padding: 0.2rem 0; font-size: 0.7rem; border-radius: 0.5rem; }
+.cal-day em { font-style: normal; font-size: 0.6rem; font-weight: 700; color: var(--accent); }
+
+.section-title { font-size: 1.2rem; margin: 1rem 0 0.2rem; }
+.fact h2 { font-size: 1.1rem; }

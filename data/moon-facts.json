@@ -1,0 +1,356 @@
+{
+  "about": "Moon facts (decision 16). 'when' lists the situations a fact fits; a fact shows under 'Right now' if ANY entry matches. Inside one entry, '+' means all must be true. Tags: any, new, crescent, quarter, gibbous, full, waxing, waning, up, low (up and under 15°), night (Sun below the horizon), daytime (Moon up and Sun up), supermoon, micromoon.",
+  "facts": [
+    {
+      "id": "same-face",
+      "when": [
+        "any"
+      ],
+      "title": "Always the same face",
+      "text": "The Moon turns once on its axis in the same time it takes to go around Earth, so the same side always faces us. A slight rocking, called libration, lets us see about 59% of its surface over a month.",
+      "source": {
+        "name": "NASA Science: Earth's Moon",
+        "url": "https://science.nasa.gov/moon/"
+      }
+    },
+    {
+      "id": "light-time",
+      "when": [
+        "any"
+      ],
+      "title": "Moonlight is 1.3 seconds old",
+      "text": "The Moon is on average about 384,400 km away. Moonlight is sunlight bounced off its surface, and it takes about 1.3 seconds to reach your eyes.",
+      "source": {
+        "name": "NASA Science: Earth's Moon",
+        "url": "https://science.nasa.gov/moon/"
+      }
+    },
+    {
+      "id": "drifting",
+      "when": [
+        "any"
+      ],
+      "title": "Slowly drifting away",
+      "text": "Apollo astronauts left mirrors on the Moon. By bouncing lasers off them, scientists found the Moon moves about 3.8 cm farther from Earth every year, roughly as fast as your fingernails grow.",
+      "source": {
+        "name": "NASA Science: Earth's Moon",
+        "url": "https://science.nasa.gov/moon/"
+      }
+    },
+    {
+      "id": "moon-day",
+      "when": [
+        "any"
+      ],
+      "title": "A very long day",
+      "text": "On the Moon, one day from sunrise to the next sunrise lasts about 29.5 Earth days. That is the same cycle as the phases you see from here: new moon to new moon.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "chandrayaan-3",
+      "when": [
+        "any"
+      ],
+      "title": "India at the Moon's south pole",
+      "text": "On 23 August 2023, ISRO's Chandrayaan-3 lander Vikram touched down near the Moon's south pole, the first landing that close to it. India now marks 23 August as National Space Day.",
+      "source": {
+        "name": "ISRO: Chandrayaan-3",
+        "url": "https://www.isro.gov.in/Chandrayaan3_New.html"
+      }
+    },
+    {
+      "id": "chandrayaan-1-water",
+      "when": [
+        "any"
+      ],
+      "title": "Water on the Moon",
+      "text": "In 2009, NASA's Moon Mineralogy Mapper, flying on India's Chandrayaan-1, found signs of water molecules spread across the Moon's surface: a major discovery made on an Indian mission.",
+      "source": {
+        "name": "NASA Science: Earth's Moon",
+        "url": "https://science.nasa.gov/moon/"
+      }
+    },
+    {
+      "id": "nakshatra-a-day",
+      "when": [
+        "any"
+      ],
+      "title": "About one nakshatra a day",
+      "text": "Against the stars, the Moon goes all the way around the sky in about 27.3 days. So it moves through roughly one of the 27 nakshatras each day.",
+      "source": {
+        "name": "Wikipedia: Nakshatra",
+        "url": "https://en.wikipedia.org/wiki/Nakshatra"
+      }
+    },
+    {
+      "id": "tides",
+      "when": [
+        "any"
+      ],
+      "title": "The Moon moves the sea",
+      "text": "The Moon's pull raises bulges in the oceans. That is why coasts like Kerala's get two high tides a day, each arriving roughly 50 minutes later than the day before.",
+      "source": {
+        "name": "NOAA: Tides",
+        "url": "https://oceanservice.noaa.gov/education/tutorial_tides/"
+      }
+    },
+    {
+      "id": "new-where",
+      "when": [
+        "new"
+      ],
+      "title": "Where is the Moon tonight?",
+      "text": "At new moon the Moon is between Earth and the Sun. Its lit side faces away from us, and it crosses the sky together with the Sun during the day, lost in the glare. So tonight there is no Moon to see.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "new-dark-sky",
+      "when": [
+        "new"
+      ],
+      "title": "The darkest nights",
+      "text": "Around new moon there is no moonlight at night, so these are the darkest nights of the month: the best time to see faint stars and, away from city lights, the Milky Way.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "solar-eclipse-new",
+      "when": [
+        "new"
+      ],
+      "title": "Solar eclipses need a new moon",
+      "text": "A solar eclipse can only happen at new moon, when the Moon passes in front of the Sun. It doesn't happen every month because the Moon's path is tilted by about 5 degrees, so usually it passes just above or below the Sun.",
+      "source": {
+        "name": "NASA Science: Eclipses",
+        "url": "https://science.nasa.gov/eclipses/"
+      }
+    },
+    {
+      "id": "spring-tides",
+      "when": [
+        "new",
+        "full"
+      ],
+      "title": "The biggest tides",
+      "text": "Around new moon and full moon, the Sun and Moon pull in the same line, so the tides are at their highest and lowest of the month. These are called spring tides, which has nothing to do with the season.",
+      "source": {
+        "name": "NOAA: Tides",
+        "url": "https://oceanservice.noaa.gov/education/tutorial_tides/"
+      }
+    },
+    {
+      "id": "earthshine",
+      "when": [
+        "crescent"
+      ],
+      "title": "Look at the dark part",
+      "text": "Next to a thin crescent, the dark part of the Moon often glows faintly. That is earthshine: sunlight reflected off Earth onto the Moon, and back to your eyes. Leonardo da Vinci worked this out about 500 years ago.",
+      "source": {
+        "name": "NASA Science: Earth's Moon",
+        "url": "https://science.nasa.gov/moon/"
+      }
+    },
+    {
+      "id": "smile",
+      "when": [
+        "crescent"
+      ],
+      "title": "A smiling Moon",
+      "text": "In places close to the equator, like Kerala, a crescent Moon often lies on its back like a smile. From Europe the same crescent looks much more upright. The lit edge always points towards the Sun, and near the equator the Sun sets almost straight down.",
+      "source": {
+        "name": "The Planetary Society: Can the Moon be upside down?",
+        "url": "https://www.planetary.org/articles/can-the-moon-be-upside-down"
+      }
+    },
+    {
+      "id": "crescent-evening",
+      "when": [
+        "crescent+waxing"
+      ],
+      "title": "An evening Moon",
+      "text": "A waxing crescent is seen low in the west soon after sunset, and it sets a few hours after the Sun. Each evening it is a little higher and a little fatter.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "crescent-morning",
+      "when": [
+        "crescent+waning"
+      ],
+      "title": "A morning Moon",
+      "text": "A waning crescent rises in the east in the early hours and is best seen before dawn. Each morning it is thinner and closer to the rising Sun, until it disappears at new moon.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "quarter-name",
+      "when": [
+        "quarter"
+      ],
+      "title": "Why \"quarter\" when it's half?",
+      "text": "Half of the Moon's face looks lit, but it is called a quarter because the Moon is a quarter of the way through its monthly cycle (first quarter) or three quarters of the way (last quarter).",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "quarter-brightness",
+      "when": [
+        "quarter"
+      ],
+      "title": "Half lit, but not half as bright",
+      "text": "A half Moon is only about one-eleventh as bright as a full Moon. Near the line between light and dark, countless shadows from mountains, rocks and dust darken the surface. At full moon those shadows all disappear.",
+      "source": {
+        "name": "Space.com: Moon phases for stargazers",
+        "url": "https://www.space.com/28424-moon-phases-lunar-delight-stargazing.html"
+      }
+    },
+    {
+      "id": "craters-terminator",
+      "when": [
+        "crescent",
+        "quarter",
+        "gibbous"
+      ],
+      "title": "The best time for craters",
+      "text": "Along the line between the Moon's day and night, the Sun is low in the lunar sky, so mountains and craters cast long shadows. Even ordinary binoculars show them well tonight. At full moon they look flat.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "gibbous-waxing-daylight",
+      "when": [
+        "gibbous+waxing"
+      ],
+      "title": "Up before dark",
+      "text": "A waxing gibbous Moon rises in the afternoon, so it is often already visible in the eastern sky in daylight, before the Sun has set.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "gibbous-waning-late",
+      "when": [
+        "gibbous+waning"
+      ],
+      "title": "Rising later each night",
+      "text": "After full moon, the Moon rises later each evening, on average about 50 minutes later every day. A waning gibbous Moon comes up well after sunset and is still in the western sky after sunrise.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "full-opposite",
+      "when": [
+        "full"
+      ],
+      "title": "Opposite the Sun",
+      "text": "At full moon the Moon is on the opposite side of Earth from the Sun. It rises around sunset, is highest around midnight, and sets around sunrise: the only phase that lights the whole night.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "lunar-eclipse-full",
+      "when": [
+        "full"
+      ],
+      "title": "Lunar eclipses need a full moon",
+      "text": "A lunar eclipse can only happen at full moon, when the Moon moves into Earth's shadow. It can turn deep red, lit only by the sunsets and sunrises happening all around Earth at that moment.",
+      "source": {
+        "name": "NASA Science: Eclipses",
+        "url": "https://science.nasa.gov/eclipses/"
+      }
+    },
+    {
+      "id": "full-flat",
+      "when": [
+        "full"
+      ],
+      "title": "Why the full Moon looks flat",
+      "text": "At full moon, sunlight falls straight onto the side facing us, so craters cast almost no shadows and the Moon looks flat. Instead, the bright streaks of dust around young craters stand out, like the rays spreading from the crater Tycho.",
+      "source": {
+        "name": "NASA Science: Earth's Moon",
+        "url": "https://science.nasa.gov/moon/"
+      }
+    },
+    {
+      "id": "moon-illusion",
+      "when": [
+        "low+night"
+      ],
+      "title": "It only looks bigger",
+      "text": "Near the horizon the Moon looks huge, but it isn't any bigger. Hold your thumb at arm's length next to it now, and again when it is high up: it's the same size. It is a trick your brain plays, and nobody fully agrees why.",
+      "source": {
+        "name": "NASA Science: Earth's Moon",
+        "url": "https://science.nasa.gov/moon/"
+      }
+    },
+    {
+      "id": "low-colour",
+      "when": [
+        "low+night"
+      ],
+      "title": "Why it looks orange down low",
+      "text": "When the Moon is low, its light travels through much more air to reach you. The air scatters away blue light, leaving yellow, orange or red: the same reason sunsets are orange.",
+      "source": {
+        "name": "NASA Science: Earth's Moon",
+        "url": "https://science.nasa.gov/moon/"
+      }
+    },
+    {
+      "id": "daytime-moon",
+      "when": [
+        "daytime"
+      ],
+      "title": "A Moon in daylight",
+      "text": "The Moon is up in the daytime right now. It is bright enough to shine through the blue sky. For part of almost every month you can see it in daylight, if you know where to look.",
+      "source": {
+        "name": "NASA Science: Moon phases",
+        "url": "https://science.nasa.gov/moon/moon-phases/"
+      }
+    },
+    {
+      "id": "supermoon",
+      "when": [
+        "supermoon"
+      ],
+      "title": "A supermoon",
+      "text": "Tonight the Moon is near its closest to Earth, less than 360,000 km away. A full moon at its closest can look about 14% bigger and 30% brighter than one at its farthest, though without a side-by-side comparison the difference is hard to see.",
+      "source": {
+        "name": "NASA Science: A supermoon trilogy",
+        "url": "https://science.nasa.gov/science-research/planetary-science/a-supermoon-trilogy/"
+      }
+    },
+    {
+      "id": "micromoon",
+      "when": [
+        "micromoon"
+      ],
+      "title": "A micromoon",
+      "text": "Tonight the Moon is near its farthest from Earth, more than 405,000 km away. It looks a little smaller and dimmer than usual, a difference that's hard to notice with the eye alone.",
+      "source": {
+        "name": "The Planetary Society: What is a supermoon?",
+        "url": "https://www.planetary.org/night-sky/what-is-a-supermoon"
+      }
+    }
+  ]
+}

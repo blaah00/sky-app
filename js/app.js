@@ -9,12 +9,16 @@ import * as space from './screens/space.js';
 import * as trivia from './screens/trivia.js';
 import * as log from './screens/log.js';
 import * as about from './screens/about.js';
+import * as moon from './screens/moon.js';
 
 // address → screen. The tab is which bottom button lights up.
-const SCREENS = { tonight, modes, space, trivia, log, about };
-const TAB_OF = { about: 'log' };
+const SCREENS = { tonight, modes, space, trivia, log, about, moon };
+const TAB_OF = { about: 'log', moon: 'tonight' };
 
 const $ = sel => document.querySelector(sel);
+
+// A screen may have a mount() that starts live updates; it returns a function that stops them.
+let stopScreen = null;
 
 function show() {
   const [name, ...rest] = location.hash.replace(/^#/, '').split('/');
@@ -22,7 +26,9 @@ function show() {
   const mod = SCREENS[screen];
   const sub = rest.join('/');
 
+  if (stopScreen) { stopScreen(); stopScreen = null; }
   $('#screen').innerHTML = mod.render(sub);
+  if (mod.mount) stopScreen = mod.mount($('#screen'), sub) || null;
   $('#screen-title').textContent = mod.title(sub);
   $('#screen-subtitle').textContent = mod.subtitle ? mod.subtitle(sub) : '';
   document.title = `Sky — ${mod.title(sub)}`;
