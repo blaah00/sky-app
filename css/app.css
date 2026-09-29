@@ -1,0 +1,205 @@
+/* Sky app — look and feel.
+   Two modes: normal (dark) and night (red on black, to protect night vision outdoors).
+   All sizes use rem, so if the phone's own text size is made bigger, the whole app grows with it. */
+
+/* ---------- Colours ---------- */
+
+:root {
+  --bg: #0b1020;
+  --surface: #151c2f;
+  --surface-2: #1d2640;
+  --line: #2a3452;
+  --text: #f2f4f8;
+  --muted: #aab3c5;
+  --accent: #8ab8ff;
+  --accent-text: #0b1020;
+  color-scheme: dark;
+}
+
+/* Night mode: only shades of red. No white, blue or green anywhere. */
+html[data-mode="night"] {
+  --bg: #000000;
+  --surface: #140000;
+  --surface-2: #1f0000;
+  --line: #3a0000;
+  --text: #e60000;
+  --muted: #a00000;
+  --accent: #ff1a1a;
+  --accent-text: #000000;
+}
+
+/* Safety net for night mode: a red filter laid over the whole screen. Multiplying by pure red removes
+   every trace of green and blue, so even photos or anything added later can only ever show as red.
+   It doesn't catch taps (pointer-events: none). */
+html[data-mode="night"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: #ff0000;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ---------- Base: big, readable text ---------- */
+
+html { font-size: 125%; }   /* 20px on a default phone; grows with the phone's text-size setting */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+  /* room for the fixed top and bottom bars */
+  padding-top: calc(4.6rem + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(5.2rem + env(safe-area-inset-bottom, 0px));
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.2; }
+p { margin: 0.4rem 0; }
+a { color: var(--accent); }
+
+.small { font-size: 0.8rem; color: var(--muted); }
+
+/* ---------- Top bar ---------- */
+
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: calc(0.6rem + env(safe-area-inset-top, 0px)) 1rem 0.6rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.topbar h1 { font-size: 1.5rem; }
+.subtitle { margin: 0; font-size: 0.8rem; color: var(--muted); }
+
+.night-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 3rem;
+  padding: 0 0.9rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+}
+.night-toggle svg { width: 1.3rem; height: 1.3rem; fill: currentColor; }
+.night-toggle[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Bottom bar ---------- */
+
+.tabbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+.tabbar a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-height: 4.6rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-top: 4px solid transparent;
+}
+.tabbar svg {
+  width: 1.7rem; height: 1.7rem;
+  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.tabbar a[aria-current="page"] { color: var(--accent); border-top-color: var(--accent); }
+
+/* ---------- Screen content ---------- */
+
+main { padding: 0.9rem 1rem 1.5rem; outline: none; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 1rem 1.1rem;
+  margin: 0 0 0.9rem;
+}
+.card h2 { font-size: 1.25rem; }
+.card.highlight { border: 2px solid var(--accent); }
+.card.slim { padding: 0.7rem 1.1rem; }
+
+/* "Coming in Step N" label on empty sections */
+.soon {
+  display: inline-block;
+  margin: 0.5rem 0 0.2rem;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  border: 1px dashed var(--muted);
+  border-radius: 999px;
+}
+
+/* Big buttons (Modes screen) */
+.big-buttons { display: grid; gap: 0.9rem; }
+.big-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 5.5rem;
+  padding: 1rem 1.2rem;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 1rem;
+}
+.big-button svg {
+  flex: none;
+  width: 2.4rem; height: 2.4rem;
+  fill: none; stroke: var(--accent); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+.big-button strong { display: block; font-size: 1.25rem; }
+.big-button span { font-size: 0.85rem; color: var(--muted); }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* The credits link at the very bottom of the Log screen: deliberately small and dim. */
+.credits-link {
+  display: block;
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0.6;
+  text-decoration: none;
+}
+
+.credits h3 { font-size: 1rem; margin-top: 0.6rem; }
+.credits ul { margin: 0.3rem 0 0.6rem; padding-left: 1.1rem; }
+.credits li { margin: 0.3rem 0; font-size: 0.9rem; }
