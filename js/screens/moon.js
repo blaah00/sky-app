@@ -3,10 +3,9 @@
 
 import { observerFor, moonNow, nextRiseSet, nextPhases, nearbySpecialMoon, phaseAt } from '../sky/moon.js';
 import { loadFacts, currentTags, splitFacts } from '../sky/moon-facts.js';
-import { onLocation, noLocationMessage } from '../sky/location.js';
 import { moonSVG } from '../ui/moon-drawing.js';
 import { fmtWhen, fmtDay, whereWords, localMidnight, escapeHtml } from '../util.js';
-import { backLink, rows } from './common.js';
+import { backLink, rows, live, waiting } from './common.js';
 
 const km = n => `${Math.round(n).toLocaleString()} km`;
 const pct = f => `${Math.round(f * 100)}%`;
@@ -47,19 +46,6 @@ function rowsHTML(s, status) {
   items.push(['Distance', km(s.m.distanceKm) +
     (status === 'denied' ? '<span class="caption">Using your last known location</span>' : '')]);
   return rows(items);
-}
-
-function waiting(status) {
-  return `<p class="muted">${escapeHtml(noLocationMessage(status))}</p>`;
-}
-
-// Keeps part of the screen up to date: redraws on location change and every minute.
-function live(draw) {
-  let loc = null, st = 'unknown';
-  const redraw = () => draw(loc, st);
-  const stop = onLocation((l, s) => { loc = l; st = s; redraw(); });
-  const timer = setInterval(redraw, 60000);
-  return () => { stop(); clearInterval(timer); };
 }
 
 // ---------- Tonight card ----------
@@ -129,8 +115,10 @@ function weekHTML() {
   return `<div class="week">${cells}</div>`;
 }
 
+// The next new moon and the next full moon, in date order (SPEC: "next full and new moon").
 function nextHTML() {
-  const list = nextPhases(new Date(), 3).filter(p => p.quarter === 0 || p.quarter === 2).slice(0, 4);
+  const all = nextPhases(new Date(), 2);
+  const list = [all.find(p => p.quarter === 0), all.find(p => p.quarter === 2)].sort((a, b) => a.date - b.date);
   return rows(list.map(p => [p.kind,
     `${fmtWhen(p.date)}${SIZE_PILL[p.size] || ''}<span class="caption">${km(p.km)}${p.quarter === 0 ? ' · not visible' : ''}</span>`]));
 }

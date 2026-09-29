@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!-- Colour of the phone's browser bar; app.js changes it to black in night mode. -->
   <meta name="theme-color" content="#0b1020">
-  <!-- Only load things from this site itself. Later steps will add the data sources proven in Step 1. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:">
+  <!-- Only load things from this site itself, plus the data sources proven in Step 1 as each step needs them.
+       Sun photos (Step 4): Helioviewer, and NASA SDO as the backup. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://api.helioviewer.org https://sdo.gsfc.nasa.gov">
   <title>Sky</title>
   <!-- Must load before anything is drawn (not deferred), so night mode starts red with no blue flash. -->
   <script src="js/early-mode.js"></script>

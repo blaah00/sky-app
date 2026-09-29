@@ -1,6 +1,7 @@
 // Small building blocks shared by the screens.
 
 import { escapeHtml } from '../util.js';
+import { onLocation, noLocationMessage } from '../sky/location.js';
 
 // A section not built yet: its name, one line on what will go there, and the step that fills it.
 export function placeholder(heading, step, what, extraClass = '') {
@@ -20,4 +21,19 @@ export function backLink(href, label) {
 export function rows(items) {
   return `<dl class="rows">${items.map(([label, value]) =>
     `<div class="row"><dt>${escapeHtml(label)}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
+}
+
+// Shown while there is no position yet (or location is refused).
+export function waiting(status) {
+  return `<p class="muted">${escapeHtml(noLocationMessage(status))}</p>`;
+}
+
+// Keeps part of the screen up to date: redraws on location change and every minute (or as often as asked).
+// Returns a stop function.
+export function live(draw, everyMs = 60000) {
+  let loc = null, st = 'unknown';
+  const redraw = () => draw(loc, st);
+  const stop = onLocation((l, s) => { loc = l; st = s; redraw(); });
+  const timer = setInterval(redraw, everyMs);
+  return () => { stop(); clearInterval(timer); };
 }

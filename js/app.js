@@ -10,10 +10,11 @@ import * as trivia from './screens/trivia.js';
 import * as log from './screens/log.js';
 import * as about from './screens/about.js';
 import * as moon from './screens/moon.js';
+import * as sun from './screens/sun.js';
 
 // address → screen. The tab is which bottom button lights up.
-const SCREENS = { tonight, modes, space, trivia, log, about, moon };
-const TAB_OF = { about: 'log', moon: 'tonight' };
+const SCREENS = { tonight, modes, space, trivia, log, about, moon, sun };
+const TAB_OF = { about: 'log', moon: 'tonight', sun: 'tonight' };
 
 const $ = sel => document.querySelector(sel);
 

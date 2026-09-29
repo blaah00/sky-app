@@ -3,6 +3,7 @@
 
 import { placeholder } from './common.js';
 import * as moon from './moon.js';
+import * as sun from './sun.js';
 
 export const title = () => 'Tonight';
 
@@ -13,7 +14,7 @@ export function render() {
   return [
     placeholder("Tonight's highlight", 'Step 5', 'The single thing most worth stepping outside for tonight, picked automatically.', 'highlight'),
     moon.cardHTML(),
-    placeholder('Sun', 'Step 4', 'The sunset sequence as a live timeline, from golden hour to full dark, and tomorrow\'s sunrise. Tap for today\'s image of the Sun.'),
+    sun.cardHTML(),
     placeholder('Planets tonight', 'Step 5', 'Which planets are up tonight, when, and in which direction.'),
     placeholder('Next satellite passes', 'Step 6', 'Bright satellites passing over: start and end direction, time and brightness.'),
     placeholder('Indian sky', 'Step 5', "Tonight's nakshatra, Moon rashi, tithi and the Malayalam month."),
@@ -23,5 +24,6 @@ export function render() {
 
 // Start the live parts of the screen; returns a function that stops them.
 export function mount(root) {
-  return moon.mountCard(root);
+  const stops = [moon.mountCard(root), sun.mountCard(root)];
+  return () => stops.forEach(stop => stop());
 }
