@@ -64,3 +64,4 @@ $('#night-toggle').addEventListener('click', () =>
 window.addEventListener('hashchange', show);
 if (!location.hash) history.replaceState(null, '', '#tonight');
 show();
+document.documentElement.dataset.appReady = '1';   // tells early-mode.js the app started

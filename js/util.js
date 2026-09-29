@@ -19,7 +19,7 @@ export function fmtTime(date) {
   return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 }
 
-// "Today 6:12 pm", "Tomorrow 5:58 am", or "Thu 2 Oct, 5:58 am"
+// "Today 6:12 pm", "Tomorrow 5:58 am", or "Thu 2 Oct · 5:58 am"
 export function fmtWhen(date) {
   if (!date) return '—';
   const day = localDayNumber(date) - localDayNumber(new Date());
@@ -27,7 +27,15 @@ export function fmtWhen(date) {
   if (day === 0) return `Today ${t}`;
   if (day === 1) return `Tomorrow ${t}`;
   if (day === -1) return `Yesterday ${t}`;
-  return `${date.toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })}, ${t}`;
+  return `${fmtDay(date)} · ${t}`;
+}
+
+// "Today", "Tomorrow", or "Thu 2 Oct"
+export function fmtDay(date) {
+  const day = localDayNumber(date) - localDayNumber(new Date());
+  if (day === 0) return 'Today';
+  if (day === 1) return 'Tomorrow';
+  return date.toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' });
 }
 
 export function fmtDate(date) {

@@ -28,8 +28,8 @@ html[data-mode="night"] {
   --surface-hi: rgba(255, 0, 0, 0.09);
   --hairline: rgba(255, 0, 0, 0.13);
   --text: #e61e1e;
-  --muted: #b81818;
-  --faint: #7e0e0e;
+  --muted: #9c1212;
+  --faint: #5c0808;
   --accent: #ff2d2d;
   --accent-soft: rgba(255, 0, 0, 0.14);
   --moon-glow: rgba(255, 0, 0, 0.18);
